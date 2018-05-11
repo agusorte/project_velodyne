@@ -1,16 +1,16 @@
 # project_velodyne
 
 
-#Overview
+# Overview
 This code find the boundining boxes combining yolo and a point cloud for detection of object.
 
-#Code 
+# Code 
 
 important files are 
 -src/ProjectVelodyne.cpp and include/ProjectVelodyne.hpp. 
 
 
-#Installation
+# Installation
 
 dependences
 -ROS Kinect
@@ -23,7 +23,7 @@ https://github.com/leggedrobotics/darknet_ros
 -boost
 -Eigen
 
-#Building
+# Building
 
 we need to have a catkin space created, follow theses intructions to install catkin (see the link below):
 
@@ -42,7 +42,7 @@ Running the ros node:
 
 $roslaunch project_velodyne project_velodyne.launch
 
-#Setting
+# Setting
 
 you can modify camera calibration parameres using the wollofing file
 
@@ -57,7 +57,7 @@ kitti file
 kitty format file is saved in:
 project_velodyne/data/kitti_file.txt
 
-#Final comments
+# Final comments
 
 Bounding box is creation is not perfect because:
 - incomplete pointcloud,
