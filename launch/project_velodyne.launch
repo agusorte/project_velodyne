@@ -1,0 +1,48 @@
+<launch>
+
+  <!-- project_velodyne.launch.launch
+  Autor: Agustin Ortega
+  Email: aortega.jim@gmail.com -->
+
+  
+  <!-- sync timestamps -->
+  <param name="use_sim_time" value="true" />
+
+
+  <!-- rosbag -->
+  <node pkg="rosbag" type="play" name="rosbag"  args="$(find project_velodyne)/data/_2017-12-06-20-02-29_Cam0Fltrd_VLP32C_Mall_Clockwise.bag --clock"/>
+
+  <!-- Console launch prefix -->
+  <arg name="launch_prefix" default=""/>
+
+  <!-- Config and weights folder. -->
+  <arg name="yolo_weights_path"          default="$(find darknet_ros)/yolo_network_config/weights"/>
+  <arg name="yolo_config_path"           default="$(find darknet_ros)/yolo_network_config/cfg"/>
+
+  <!-- Load parameters -->
+  <rosparam command="load" ns="darknet_ros" file="$(find darknet_ros)/config/ros.yaml"/>
+  <rosparam command="load" ns="darknet_ros" file="$(find darknet_ros)/config/yolo_voc.yaml"/>
+
+  <!-- Start darknet and ros wrapper -->
+  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
+    <param name="weights_path"          value="$(arg yolo_weights_path)" />
+    <param name="config_path"           value="$(arg yolo_config_path)" />
+  </node>
+
+  <!-- kitty file -->
+  <arg name="kitti_file_path"           default="$(find project_velodyne)/data/kitti_file.txt"/>
+
+
+  <!-- Load parameters -->
+  <rosparam command="load" ns="project_velodyne_node" file="$(find project_velodyne)/config/cam_calib.yalm"/>
+  <rosparam command="load" ns="project_velodyne_node" file="$(find project_velodyne)/config/settings.yalm"/>
+
+  <node pkg="project_velodyne" type="project_velodyne_node" name="project_velodyne_node" output="screen" launch-prefix="$(arg launch_prefix)">
+    <param name="kittifile"          value="$(arg kitti_file_path)" />
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-f velodyne -d $(find project_velodyne)/config/rvizConfig.rviz"/>
+
+  
+  
+</launch>

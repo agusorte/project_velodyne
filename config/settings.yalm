@@ -1,0 +1,38 @@
+subscribers_:
+
+  camera_reading:
+    topic: /camera0/image_raw
+    queue_size: 1
+
+  pointcloud_reading:
+    topic: /velodyne_points
+    queue_size: 1
+
+  bounding_box_reading:
+    topic: /darknet_ros/bounding_boxes
+    queue_size: 1
+
+publishers_:
+
+  bounding_box_writting:
+    topic: /velodyne_bounding_box
+    queue_size: 1
+    latch: false
+
+  pointcloud_writting:
+    topic: /velodyne_seg
+    queue_size: 1
+    latch: false
+
+  image_writting:
+    topic: /camera0/image_proj
+    queue_size: 1
+    latch: false
+
+image_ouput:
+  view: false
+
+
+
+    
+    
